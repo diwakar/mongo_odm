@@ -24,7 +24,7 @@ Gem::Specification.new do | specification |
   specification.add_dependency( "bson", [ "= 1.1" ] )
 
   # development dependencies
-  specification.add_development_dependency( "bson_ext", [ "= 1.1" ] )
+  #specification.add_development_dependency( "bson_ext", [ "= 1.1" ] )
   specification.add_development_dependency( "rake", [ "~> 0.8.7" ] )
   specification.add_development_dependency( "rspec", [ "~> 2.0.0" ] )
 
