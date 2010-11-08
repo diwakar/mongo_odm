@@ -1,5 +1,6 @@
 require 'mongo_odm/document/attribute_methods/read'
 require 'mongo_odm/document/attribute_methods/write'
+require 'mongo_odm/document/attribute_methods/query'
 
 #
 # module. MongoODM

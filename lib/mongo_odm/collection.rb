@@ -97,6 +97,32 @@ module MongoODM
     #
     #
     #
+    def find_with_ids( *ids )
+    #------------------------
+
+      expects_array = ids.first.kind_of?(Array)
+      return ids.first if expects_array && ids.first.empty?
+
+      options = ids.extract_options!
+      ids = ids.flatten.compact.uniq
+
+      case ids.size
+        when 0
+          raise "A document cannot be found without an id."
+        when 1
+          result = find_one( ids.first, options )
+          result = expects_array ? [ result ] : result
+        else
+          result = find_some( ids, options )
+      end
+      
+      result
+      
+    end
+
+    #
+    #
+    #
     def find_one( selector_or_id = nil, options = {} )
     #-------------------------------------------------
       
@@ -118,6 +144,19 @@ module MongoODM
     
       find( selector, options.merge( :limit => -1 ) ).next_document
     
+    end
+    
+    #
+    #
+    #
+    def find_some( ids, options = {} )
+    #---------------------------------
+      
+      ids = ids.map { | id | BSON::ObjectId.from( id ) }
+      ids.empty? ?
+        [] :
+        find( :_id => { '$in' => ids } )
+      
     end
 
     #
